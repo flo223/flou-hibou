@@ -1,4 +1,5 @@
 // var update = document.getElementById('update')
+
 var del = document.getElementsByName('delete')
 var bookTable = document.getElementsByName('bookTable')
 
@@ -43,6 +44,13 @@ Array.from(bookTable).forEach(function(elem){
       })
     })
 })
+
+jQuery(document).ready(function ($) {
+    $('#myTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+});
 
 
 

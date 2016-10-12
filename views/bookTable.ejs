@@ -1,42 +1,50 @@
-<!--todo séparer les lecteurs par onglet-->
+<!--todo gerer la pestaña active par js-->
 <div class="container theme-showcase" role="main">
     <div class="jumbotron">
-        <% for (var k=0; k<lecteurs.length; k++) {%>
-            <div><%= lecteurs[k]%></div>
-            <table class="table table-striped">
-                <thead>
-                <tr class="livres">
-                    <th>Date</th>
-                    <th>Titre</th>
-                    <th>Auteur</th>
-                    <th>Langue</th>
-                    <th>Genre</th>
-                    <th>Pages</th>
-                    <th>Note</th>
-                    <th>Commentaires</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!--trier la liste de livre par ordre descroissant en commençant par le plus recent-->
-                <% for(var i=0; i<livres.length;i++) {
-
-                if (livres[i].lecteur===lecteurs[k]) {%>
-                <tr name="bookTable">
-                    <td><%= livres[i].date %></td>
-                    <td name = "titre" ><%= livres[i].titre %></td>
-                    <td><%= livres[i].auteur %></td>
-                    <td><%= livres[i].langue %></td>
-                    <td><%= livres[i].genre %></td>
-                    <td><%= livres[i].pages %></td>
-                    <td><%= livres[i].note %></td>
-                    <td><%= livres[i].commentaires %></td>
-                    <td><button><span name = "delete" class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
-                </tr>
-                </tbody>
-                <% }
-
-                } %>
-            </table>
-        <% } %>
+        <div class="container">
+            <ul class="nav nav-tabs">
+            <% for (var k=0; k<lecteurs.length; k++) {%>
+                <li><a data-toggle="tab" href="#menu<%=k+1%>"><%= lecteurs[k]%></a></li>
+            <%}%>
+            </ul>
+            <div class="tab-content">
+            <% for (var j=0; j<lecteurs.length; j++) {%>
+                <div id="menu<%=j+1%>" class="tab-pane fade in active">
+                    <h3><%= lecteurs[j]%></h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="livres">
+                                <th>Date</th>
+                                <th>Titre</th>
+                                <th>Auteur</th>
+                                <th>Langue</th>
+                                <th>Genre</th>
+                                <th>Pages</th>
+                                <th>Note</th>
+                                <th>Commentaires</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% for(var i=0; i<livres.length;i++) {
+                            if (livres[i].lecteur===lecteurs[j]) {%>
+                            <tr name="bookTable">
+                                <td><%= livres[i].date %></td>
+                                <td name = "titre" ><%= livres[i].titre %></td>
+                                <td><%= livres[i].auteur %></td>
+                                <td><%= livres[i].langue %></td>
+                                <td><%= livres[i].genre %></td>
+                                <td><%= livres[i].pages %></td>
+                                <td><%= livres[i].note %></td>
+                                <td><%= livres[i].commentaires %></td>
+                                <td><button><span name = "delete" class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+                            </tr>
+                            <% }
+                        }%>
+                        </tbody>
+                    </table>
+                </div>
+                 <%}%>
+            </div>
+        </div>
     </div>
 </div>
