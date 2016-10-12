@@ -1,0 +1,8 @@
+{
+  "classique":"Roman classique",
+  "moderne":"Roman moderne",
+  "science":"Science-Fiction",
+  "histoire":"Livre historique",
+  "politique":"Livre politique"
+
+}
