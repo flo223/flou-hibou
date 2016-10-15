@@ -1,4 +1,13 @@
-console.log('May Node be with you');
+/*todo create sandbox for bbdd mongo*/
+
+var os = require('os');
+var dbName="";
+var localComputerName = "DESKTOP-6FLMNIG";
+env = os.hostname();
+console.log("site served from: " + env);
+
+
+
 const express = require('express');
 const bodyParser= require('body-parser')
 const app = express();
@@ -6,11 +15,22 @@ const app = express();
 
 const MongoClient = require('mongodb').MongoClient
 
-MongoClient.connect('mongodb://flea:Castor5544332211@ds017896.mlab.com:17896/flou', (err, database) => {
+
+if (env === localComputerName ){
+    dbName='mongodb://flea:Castor5544332211@ds017896.mlab.com:17896/flou'
+}
+
+else{
+    dbName='mongodb://flea:Castor5544332211@ds057806.mlab.com:57806/prod';
+}
+
+
+MongoClient.connect(dbName, (err, database) => {
     if (err) return console.log(err)
     db = database
     app.listen(process.env.PORT || 5000)
-})
+    })
+
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
