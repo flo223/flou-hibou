@@ -1,4 +1,4 @@
-/*todo create sandbox for bbdd mongo*/
+/*Todo Insert validation form with jquery*/
 
 var os = require('os');
 var dbName="";
