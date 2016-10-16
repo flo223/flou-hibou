@@ -5,14 +5,9 @@ var dbName="";
 var localComputerName = "DESKTOP-6FLMNIG";
 env = os.hostname();
 console.log("site served from: " + env);
-
-
-
 const express = require('express');
 const bodyParser= require('body-parser')
 const app = express();
-
-
 const MongoClient = require('mongodb').MongoClient
 
 
@@ -99,14 +94,14 @@ app.post('/flou', (req, res) => {
   db.collection('flon').save(req.body, (err, result) => {
       if (err) return console.log(err)
       console.log('saved to database')
-      res.redirect('/liste')
+      res.redirect('/liste?lecteur='+result.lecteur)
       })
-      })
+ })
 
- app.post('/livres', (req, res) => {
-   db.collection('livres').save(req.body, (err, result) => {
-       if (err) return console.log(err)
-       console.log('saved to database')
-       res.redirect('/liste')
-       })
-   })
+app.post('/livres', (req, res) => {
+    db.collection('livres').save(req.body, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/liste?lecteur='+req.body.lecteur)
+    })
+})

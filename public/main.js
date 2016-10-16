@@ -3,27 +3,15 @@
 var del = document.getElementsByName('delete')
 var bookTable = document.getElementsByName('bookTable')
 
+/*Get parameter of the url and escape it*/
+$.urlParam = function(name){
+	var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	if (results !== null){
+	    return results[1] || 0;
+    }
+}
+var lecteur = decodeURI($.urlParam('lecteur'));
 
-
-/*update.addEventListener('click', function () {
-    var titre = document.getElementById('titre').value
-    var genre = document.getElementById('genre').value
-    fetch('actu', {
-      method: 'put',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        'titre': titre,
-        'genre': genre
-      })
-    })
-    .then(res => {
-        if (res.ok) return res.json()
-    }).then(data => {
-        console.log(data)
-        window.location.reload(true)
-    })
-})
-*/
 
 Array.from(bookTable).forEach(function(elem){
     elem.lastElementChild.addEventListener('click', function () {
@@ -40,17 +28,45 @@ Array.from(bookTable).forEach(function(elem){
         if (res.ok) return res.json()
       }).then(data => {
         console.log(data)
-        window.location.reload()
+        var currentReader = $('ul[class="nav nav-tabs"]').find('a[aria-expanded="true"]').text();
+        window.location.href = '/liste?lecteur='+currentReader
       })
     })
 })
 
-jQuery(document).ready(function ($) {
-    $('#myTabs a').click(function (e) {
-      e.preventDefault()
-      $(this).tab('show')
-    })
-});
+/*show first tab when directly enter book page. If user come from insert book page,
+it will select the user tab that just inserted a book*/
 
+function selectPane (index){
+    $(document).ready(function() {
+        $('ul[class="nav nav-tabs"]').find('li').each(function(tab){
+            $(this).removeClass('active');
+        })
+        $('ul[class="nav nav-tabs"]').find('li').eq(index).addClass('active');
+        $('ul[class="nav nav-tabs"]').find('a').each(function(tab){
+            $(this).attr( "aria-expanded", "false" );
+        })
+        $('ul[class="nav nav-tabs"]').find('a').eq(index).attr( "aria-expanded", "true" );
+        $('div[class=tab-content]').find('div').each(function(tab){
+            $(this).attr('class','tab-pane fade');
+        })
+        $('div[class=tab-content]').find('div').eq(index).attr('class','tab-pane fade active in');
+    })
+}
+
+selectPane(0);
+
+if (lecteur !== null && lecteur === "Stéphanie"){
+    selectPane(0);
+}
+
+else if (lecteur !== null && lecteur === "Marie-France"){
+    selectPane(1);
+}
+
+else if (lecteur !== null && lecteur === "Florent"){
+    selectPane(2);
+
+}
 
 
