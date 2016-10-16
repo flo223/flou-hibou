@@ -13,6 +13,7 @@ $.urlParam = function(name){
 var lecteur = decodeURI($.urlParam('lecteur'));
 
 
+/*Event listener for delete button in bookList*/
 Array.from(bookTable).forEach(function(elem){
     elem.lastElementChild.addEventListener('click', function () {
       var titleOfBookToDelete = elem.children[1].innerHTML
@@ -33,6 +34,24 @@ Array.from(bookTable).forEach(function(elem){
       })
     })
 })
+
+$(document).ready(function()  {
+   // $('ul[class="nav navbar-nav"]').find('li').each(function(){
+    var currentUrl = window.location.href.substr(window.location.href.lastIndexOf("/"));
+    if (currentUrl.includes("?")){
+        currentUrl = currentUrl.substr(0, currentUrl.indexOf("?"));
+
+    }
+    console.log("url Est " + currentUrl);
+    $('ul[class="nav navbar-nav"]').find('a').each(function(){
+        if ($(this).attr("href") === currentUrl)
+        {
+            $(this).parent().attr('class','active');
+        }
+    })
+
+})
+
 
 /*show first tab when directly enter book page. If user come from insert book page,
 it will select the user tab that just inserted a book*/
